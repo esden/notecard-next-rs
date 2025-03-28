@@ -5,7 +5,7 @@
 #runner = "probe-rs run --chip STM32L4S5QI"
 #runner = "probe-rs run --chip STM32L4R5ZITxP"
 #runner = "../scripts/run.sh"
-runner = "probe-rs run --protocol swd --chip STM32L452CEUx"
+runner = "probe-rs run --protocol swd --chip STM32L452CEUx --no-location"
 
 [build]
 target = "thumbv7em-none-eabi"
