@@ -15,7 +15,12 @@
           "target": "thumbv7em-none-eabi",
           "bins": true,
           "allTargets": false
-        }
+        },
+        "linkedProjects": [
+          "notecard/Cargo.toml",
+          "examples/swan/Cargo.toml",
+          "examples/custom-stm32l4/Cargo.toml"
+        ]
       }
     }
   }

@@ -1,0 +1,41 @@
+[package]
+name = "custom-stm32l4"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+# Change stm32l452re to your chip name, if necessary.
+embassy-stm32 = { version = "0.2.0", git = "https://github.com/embassy-rs/embassy.git", features = ["defmt", "unstable-pac", "stm32l452ce", "time-driver-any", "memory-x", "exti", "chrono"] }
+embassy-sync = { version = "0.6.1", git = "https://github.com/embassy-rs/embassy.git", features = ["defmt"] }
+embassy-executor = { version = "0.7.0", git = "https://github.com/embassy-rs/embassy.git", features = ["task-arena-size-32768", "arch-cortex-m", "executor-thread", "defmt"] }
+embassy-time = { version = "0.4", git = "https://github.com/embassy-rs/embassy.git", features = ["defmt", "defmt-timestamp-uptime", "tick-hz-32_768"] }
+embassy-embedded-hal = { version = "0.3.0", git = "https://github.com/embassy-rs/embassy.git" }
+embassy-futures = { version = "0.1.0", git = "https://github.com/embassy-rs/embassy.git" }
+embedded-io-async = { version = "0.6.1", features = ["defmt-03"] }
+embedded-io = { version = "0.6.1", features = ["defmt-03"] }
+
+defmt = "0.3"
+defmt-rtt = { version = "0.4" }
+# defmt-serial = { version = "0.10" }
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+
+cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section-single-core"] }
+cortex-m-rt = "0.7.0"
+embedded-hal = "0.2.6"
+embedded-hal-1 = { package = "embedded-hal", version = "1.0" }
+embedded-hal-async = { version = "1.0" }
+embedded-hal-bus = { version = "0.1.0", features = ["async"] }
+embedded-storage = { version = "0.3.1" }
+futures = { version = "0.3.17", default-features = false, features = ["async-await"] }
+heapless = { version = "0.7", features = ["serde", "ufmt-impl", "defmt-impl"] }
+chrono = { version = "^0.4", default-features = false }
+rand = { version = "0.8.5", default-features = false }
+static_cell = "2"
+
+micromath = "2.0.0"
+
+# blues-notecard-next = { git = "https://github.com/esden/notecard-next-rs.git" }
+blues-notecard-next = { path = "../../notecard" }
+
+[features]
