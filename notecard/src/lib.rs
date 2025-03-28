@@ -30,11 +30,6 @@ mod error;
 
 const CARD_RESET_DRAIN_DELAY: Duration = Duration::milliseconds(500);
 
-pub trait Now {
-    // The time elapsed since startup in microseconds
-    fn now_micros(&self) -> u64;
-}
-
 pub struct Config {
     /// Response timeout in (ms)
     pub response_timeout: Duration,
@@ -76,9 +71,8 @@ pub struct SuspendState {
     reset_required: bool,
 }
 
-pub struct Notecard<IFT: Read + Write, C: Now, D: DelayNs> {
+pub struct Notecard<IFT: Read + Write, D: DelayNs> {
     interface: IFT,
-    _clock: C,
     delay: D,
 
     // Configuration
@@ -93,17 +87,16 @@ enum ResetResult {
     CRResult,
 }
 
-impl<IFT: Read + Write, C: Now, D: DelayNs> Notecard<IFT, C, D> {
+impl<IFT: Read + Write, D: DelayNs> Notecard<IFT, D> {
     /// Create a new Notecard driver handler with the default configuration
-    pub fn new(interface: IFT, clock: C, delay: D) -> Self {
-        Self::new_with_config(interface, clock, delay, Config::default())
+    pub fn new(interface: IFT, delay: D) -> Self {
+        Self::new_with_config(interface, delay, Config::default())
     }
 
     /// Create a new Notecard driver with a custom configuration
-    pub fn new_with_config(interface: IFT, clock: C, delay: D, config: Config) -> Self {
+    pub fn new_with_config(interface: IFT, delay: D, config: Config) -> Self {
         Self {
             interface,
-            _clock: clock,
             delay,
             config,
             reset_required: true,
@@ -122,10 +115,9 @@ impl<IFT: Read + Write, C: Now, D: DelayNs> Notecard<IFT, C, D> {
     }
 
     /// Recreate the driver from an existing state and an interface.
-    pub fn resume(interface: IFT, clock: C, delay: D, state: SuspendState) -> Self {
+    pub fn resume(interface: IFT, delay: D, state: SuspendState) -> Self {
         Notecard {
             interface,
-            _clock: clock,
             delay,
             config: state.config,
             reset_required: state.reset_required,

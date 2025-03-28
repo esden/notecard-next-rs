@@ -9,7 +9,7 @@ use embassy_executor::Spawner;
 use embassy_stm32::gpio::{Level, Output, Speed};
 use embassy_stm32::usart::{self, BufferedUart};
 use embassy_stm32::{bind_interrupts, peripherals};
-use embassy_time::{Delay, Instant, Timer};
+use embassy_time::{Delay, Timer};
 
 bind_interrupts!(struct NoteIrqs {
     USART2 => usart::BufferedInterruptHandler<peripherals::USART2>;
@@ -57,18 +57,10 @@ async fn main(_spawner: Spawner) {
     let _aux_en = Output::new(p.PB2, Level::High, Speed::Low);
     Timer::after_millis(100).await;
 
-    struct EmbassyClock;
-    impl blues_notecard_next::Now for EmbassyClock {
-        fn now_micros(&self) -> u64 {
-            Instant::now().as_micros()
-        }
-    }
-
-    let clock = EmbassyClock;
     let delay = Delay;
 
     // Configure notecard
-    let mut note = Notecard::new(usart, clock, delay);
+    let mut note = Notecard::new(usart, delay);
 
     let r = note.transaction().await;
 
