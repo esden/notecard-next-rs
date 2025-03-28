@@ -136,7 +136,7 @@ impl<IFT: Read + Write, C: Now, D: DelayNs> Notecard<IFT, C, D> {
     pub async fn transaction(&mut self) -> Result<(), error::Error> {
         if self.reset_required {
             self.reset().await?;
-            trace!("Reset Success!");
+            debug!("Reset Success!");
         }
 
         Ok(())
@@ -150,7 +150,7 @@ impl<IFT: Read + Write, C: Now, D: DelayNs> Notecard<IFT, C, D> {
             match self.try_reset().await {
                 Ok(result) => match result {
                     ResetResult::NonCRResult => {
-                        trace!("Found unexpected return characters. Retrying sync.")
+                        debug!("Found unexpected return characters. Retrying sync.")
                     }
                     ResetResult::CRResult => return Ok(()),
                 },
