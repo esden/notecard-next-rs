@@ -12,7 +12,7 @@ use embassy_stm32::{bind_interrupts, peripherals};
 use embassy_time::{Delay, Timer};
 
 bind_interrupts!(struct NoteIrqs {
-    USART2 => usart::BufferedInterruptHandler<peripherals::USART2>;
+    USART1 => usart::BufferedInterruptHandler<peripherals::USART1>;
 });
 
 #[embassy_executor::main]
@@ -43,10 +43,10 @@ async fn main(_spawner: Spawner) {
     let mut tx_buffer = [0_u8; 256];
     let mut rx_buffer = [0_u8; 256];
     let usart = BufferedUart::new(
-        p.USART2,
+        p.USART1,
         NoteIrqs,
-        p.PA3,
-        p.PA2,
+        p.PA10,
+        p.PA9,
         &mut tx_buffer,
         &mut rx_buffer,
         config,
@@ -54,7 +54,7 @@ async fn main(_spawner: Spawner) {
     .unwrap();
 
     // Enable aux serial
-    let _aux_en = Output::new(p.PB2, Level::High, Speed::Low);
+    let _aux_en = Output::new(p.PE11, Level::High, Speed::Low);
     Timer::after_millis(100).await;
 
     let delay = Delay;
