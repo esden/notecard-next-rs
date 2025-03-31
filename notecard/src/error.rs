@@ -33,3 +33,12 @@ pub enum Error {
 
     NotecardErr(String<256>),
 }
+
+impl Error {
+    pub fn new_desererror(msg: &[u8]) -> Error {
+        let msg = core::str::from_utf8(&msg).unwrap_or("[invalid utf8]");
+        let mut s = String::new();
+        s.push_str(msg).ok();
+        Error::DeserError(s)
+    }
+}
