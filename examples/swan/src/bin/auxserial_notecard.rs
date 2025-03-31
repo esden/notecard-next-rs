@@ -62,7 +62,8 @@ async fn main(_spawner: Spawner) {
     // Configure notecard
     let mut note = Notecard::new(usart, delay);
 
-    let r = note.transaction().await;
+    let hub_get = blues_notecard_next::hub::req::HubGet::default();
+    let r = note.transaction(hub_get).await;
 
     info!("done {}", r);
 
