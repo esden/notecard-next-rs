@@ -160,7 +160,7 @@ impl<IFT: Read + Write, D: DelayNs> Notecard<IFT, D> {
     async fn try_reset(&mut self) -> Result<ResetResult, error::Error> {
         if let Err(e) = self.interface.write_all(b"\n").await {
             error!(
-                "Sending reset newline failed with {}",
+                "nc: Sending reset newline failed with {}",
                 defmt::Debug2Format(&e)
             );
             self.delay
@@ -186,17 +186,17 @@ impl<IFT: Read + Write, D: DelayNs> Notecard<IFT, D> {
                 Some(res) => match res {
                     Ok(len) => {
                         trace!(
-                            "Got data count {} buffer {:?}",
+                            "nc: Got data count {} buffer {:?}",
                             len,
                             core::str::from_utf8(&buffer).unwrap()
                         )
                     }
                     Err(err) => {
-                        error!("Read failed with {}", defmt::Debug2Format(&err))
+                        error!("nc: Read failed with {}", defmt::Debug2Format(&err))
                     }
                 },
                 None => {
-                    trace!("Timeout");
+                    trace!("nc: Timeout");
                     break;
                 }
             }
