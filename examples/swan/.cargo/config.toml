@@ -11,7 +11,12 @@ runner = "probe-rs run --protocol jtag --chip STM32L4R5ZIYx --no-location"
 target = "thumbv7em-none-eabi"
 
 [env]
-DEFMT_LOG = "trace"
+# What we actually want is to set the log level for the whole project to trace and only set it to info for the embassy_hal_internal to info.
+# Unfortunotely it seems that if we set the following:
+# DEFMT_LOG = "trace,embassy_hal_internal::atomic_ring_buffer=info"
+# trace is also being applied to the embassy atomic ring buffer. So we have to do it the other way around, and enable
+# trace for notecard crate only.
+DEFMT_LOG = "info,blues_notecard_next=trace"
 
 [profile.release]
 # Allows defmt to display log locations even in release
