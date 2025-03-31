@@ -25,11 +25,11 @@ async fn main(_spawner: Spawner) {
         config.rcc.hsi = true;
         config.rcc.pll = Some(Pll {
             source: PllSource::HSI,
-            prediv: PllPreDiv::DIV1,
-            mul: PllMul::MUL20,
+            prediv: PllPreDiv::DIV2,
+            mul: PllMul::MUL30,
             divp: None,
             divq: None,
-            divr: Some(PllRDiv::DIV4),
+            divr: Some(PllRDiv::DIV2),
         });
         config.rcc.ls = LsConfig::default_lse();
         config.rcc.mux.usart1sel = mux::Usart1sel::SYS;
