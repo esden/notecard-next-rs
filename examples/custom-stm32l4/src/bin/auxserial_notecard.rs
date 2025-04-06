@@ -15,8 +15,6 @@ bind_interrupts!(struct NoteIrqs {
     USART2 => usart::BufferedInterruptHandler<peripherals::USART2>;
 });
 
-// static DEBUG_UART: StaticCell<usart::Uart<mode::Blocking>> = StaticCell::new();
-
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     // Configure and initialize system clock tree

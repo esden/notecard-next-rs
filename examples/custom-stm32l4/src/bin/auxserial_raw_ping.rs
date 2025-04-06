@@ -73,13 +73,3 @@ async fn main(_spawner: Spawner) {
         Timer::after_millis(1000).await;
     }
 }
-
-// #[inline(never)]
-// #[panic_handler]
-// #[allow(dead_code)]
-// fn panic(info: &PanicInfo) -> ! {
-//     error!("panic: {}", defmt::Debug2Format(info));
-//     error!("halting...");
-//     defmt::flush();
-//     loop {}
-// }
