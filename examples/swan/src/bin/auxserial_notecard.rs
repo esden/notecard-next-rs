@@ -44,11 +44,11 @@ async fn main(_spawner: Spawner) {
     let mut rx_buffer = [0_u8; 256];
     let usart = BufferedUart::new(
         p.USART1,
-        NoteIrqs,
         p.PA10,
         p.PA9,
         &mut tx_buffer,
         &mut rx_buffer,
+        NoteIrqs,
         config,
     )
     .unwrap();
