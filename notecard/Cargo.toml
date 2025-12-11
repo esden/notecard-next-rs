@@ -12,3 +12,5 @@ heapless = { version = "0.9", features = ["serde", "ufmt", "defmt"] }
 serde = { version = "1.0.219", default-features = false, features = ["derive"] }
 serde-json-core = "0.6.0"
 futures = { version = "0.3.31", default-features = false, features = ["async-await"] }
+
+notecard-next-macro = { path = "notecard-macro" }

@@ -27,6 +27,7 @@ use embedded_io_async::{Read, Write};
 use futures::{select_biased, FutureExt};
 use heapless::Vec;
 use serde::{de::DeserializeOwned, Serialize};
+pub use notecard_next_macro::NoteTransaction;
 
 mod error;
 pub mod hub;

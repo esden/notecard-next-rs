@@ -6,6 +6,8 @@ pub mod req {
     use crate::NoteTransaction;
 
     #[derive(Deserialize, Serialize, defmt::Format)]
+    #[derive(NoteTransaction)]
+    #[note_transaction(result_type = res::Hub)]
     pub struct HubGet {
         pub req: &'static str
     }
@@ -16,10 +18,6 @@ pub mod req {
                 req: "hub.get"
             }
         }
-    }
-
-    impl NoteTransaction for HubGet {
-        type NoteResult = res::Hub;
     }
 
     #[derive(Deserialize, Serialize, defmt::Format)]
